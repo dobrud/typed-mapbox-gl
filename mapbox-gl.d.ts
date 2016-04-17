@@ -181,6 +181,9 @@
 
 			convert(input: number[]|LngLat): LngLat;
 		}
+		
+		export function LngLat(lng: number, lat: number): void;
+		
 
 		export interface LngLatBounds {
 			extend(obj: LngLat|LngLatBounds): LngLatBounds;
