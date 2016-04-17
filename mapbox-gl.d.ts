@@ -1,5 +1,3 @@
-declare module 'mapbox-gl/mapboxgl' {
-
 	namespace mapboxgl {
 		let accessToken: string;
 		export interface Map {
@@ -284,9 +282,3 @@ declare module 'mapbox-gl/mapboxgl' {
 	}
 
 	export = mapboxgl;
-}
-
-declare module 'mapbox-gl' {
-	import main = require('mapbox-gl/mapboxgl');
-	export = main;
-}
