@@ -1,287 +1,289 @@
-	namespace mapboxgl {
-		let accessToken: string;
-		export interface Map {
-			
-			addControl(control: Control): mapboxgl.Map;
+namespace mapboxgl {
+	let accessToken: string;
+	export interface Map {
 
-			addClass(klass: string, options: Object): mapboxgl.Map;
+		addControl(control: Control): mapboxgl.Map;
 
-			removeClass(klass: string, options: Object): mapboxgl.Map;
+		addClass(klass: string, options: Object): mapboxgl.Map;
 
-			setClasses(klasses: string[], options: Object): mapboxgl.Map;
+		removeClass(klass: string, options: Object): mapboxgl.Map;
 
-			hasClass(klass: string): boolean;
+		setClasses(klasses: string[], options: Object): mapboxgl.Map;
 
-			getClasses(): string[];
+		hasClass(klass: string): boolean;
 
-			resize(): mapboxgl.Map;
+		getClasses(): string[];
 
-			getBounds(): LngLatBounds;
+		resize(): mapboxgl.Map;
 
-			setMaxBounds(lnglatbounds: LngLatBounds|number[][]|any): mapboxgl.Map;
+		getBounds(): LngLatBounds;
 
-			setMinZoom(minZoom: number): mapboxgl.Map;
+		setMaxBounds(lnglatbounds: LngLatBounds|number[][]|any): mapboxgl.Map;
 
-			setMaxZoom(maxZoom: number): mapboxgl.Map;
+		setMinZoom(minZoom: number): mapboxgl.Map;
 
-			project(lnglat: LngLat): Object;
+		setMaxZoom(maxZoom: number): mapboxgl.Map;
 
-			unproject(point: number[]): LngLat;
+		project(lnglat: LngLat): Object;
 
-			queryRenderedFeatures(pointOrBox: Point|number[]|number[][], params: Object): Object[];
+		unproject(point: number[]): LngLat;
 
-			querySourceFeatures(sourceID: string, params: Object): Object[];
+		queryRenderedFeatures(pointOrBox: Point|number[]|number[][], params: Object): Object[];
 
-			setStyle(style: Object): mapboxgl.Map;
+		querySourceFeatures(sourceID: string, params: Object): Object[];
 
-			getStyle(): Object;
+		setStyle(style: Object): mapboxgl.Map;
 
-			addSource(id: string, source: Object): mapboxgl.Map;
+		getStyle(): Object;
 
-			removeSource(id: string): mapboxgl.Map;
+		addSource(id: string, source: Object): mapboxgl.Map;
 
-			getSource(id: string): mapboxgl.Map;
+		removeSource(id: string): mapboxgl.Map;
 
-			addLayer(layer: StyleLayer|Object, before: string): mapboxgl.Map;
+		getSource(id: string): mapboxgl.Map;
 
-			removeLayer(id: string): mapboxgl.Map;  // Todo: add throws Error
-			getLayer(id: string): Object;
+		addLayer(layer: StyleLayer|Object, before: string): mapboxgl.Map;
 
-			setFilter(layer: string, filter: any[]): mapboxgl.Map;
+		removeLayer(id: string): mapboxgl.Map;  // Todo: add throws Error
+		getLayer(id: string): Object;
 
-			setLayerZoomRange(layerId: string, minzoom: number, maxzoom: number): mapboxgl.Map;
+		setFilter(layer: string, filter: any[]): mapboxgl.Map;
 
-			getFilter(layer: string): any[];
+		setLayerZoomRange(layerId: string, minzoom: number, maxzoom: number): mapboxgl.Map;
 
-			setPaintProperty(layer: string, name: string, value: any, klass?: string): mapboxgl.Map;
+		getFilter(layer: string): any[];
 
-			getPaintProperty(layer: string, name: string, klass?: string): any;
+		setPaintProperty(layer: string, name: string, value: any, klass?: string): mapboxgl.Map;
 
-			setLayoutProperty(layer: string, name: string, value: any): mapboxgl.Map;
+		getPaintProperty(layer: string, name: string, klass?: string): any;
 
-			getLayoutProperty(layer: string, name: string): any;
+		setLayoutProperty(layer: string, name: string, value: any): mapboxgl.Map;
 
-			getContainer(): HTMLElement;
+		getLayoutProperty(layer: string, name: string): any;
 
-			getCanvasContainer(): HTMLElement;
+		getContainer(): HTMLElement;
 
-			getCanvas(): HTMLElement;
+		getCanvasContainer(): HTMLElement;
 
-			loaded(): boolean;
+		getCanvas(): HTMLElement;
 
-			remove(): void;
+		loaded(): boolean;
 
-			onError(): void;
-		}
+		remove(): void;
 
-		export function Map(options: Object): void;
+		panTo(lnglat: LngLat, options?: any, eventdata?: any): mapboxgl.Map; // Todo: create types for AnimationOptions and Eventdata
 
-		export interface Control {
-			addTo(map: mapboxgl.Map): Control;
-
-			remove(): Control;
-		}
-
-		export interface Navigation {
-			onAdd(map: mapboxgl.Map): HTMLElement; // Todo: HTMLElement return type is only an assertion
-		}
-
-		export interface Geolocate {
-			onAdd(map: mapboxgl.Map): HTMLElement; // Todo: HTMLElement return type is only an assertion
-		}
-
-		export interface Attribution {
-			onAdd(map: mapboxgl.Map): HTMLElement; // Todo: HTMLElement return type is only an assertion
-		}
-
-		export interface Popup {
-			onAdd(map: mapboxgl.Map): Popup;
-
-			remove(): Popup;
-
-			getLngLat(): LngLat;
-
-			setLngLat(lnglat: LngLat): Popup;
-
-			setText(text: string): Popup;
-
-			setHTML(html: string): Popup;
-
-			setDOMContent(htmlNode: Node): Popup;
-		}
-
-		export interface GeoJSONSource {
-			setData(data: Object|String): GeoJSONSource;
-
-			onAdd(map: mapboxgl.Map): void;
-
-			loaded(): boolean;
-
-			update(transform: any): void; // Todo: Paramater type not documentet yet
-			reload(): void;
-
-			serialize(): Object;
-
-			// Todo: variables
-			// Todo: - getVisibleCoordinates
-			// Todo: - getTitle
-			// Todo: - queryRenderedFeatures
-			// Todo: - querySourceFeatures
-			// Todo: - redoPlacement
-		}
-
-		export interface VideoSource {
-			getVideo(): VideoSource;
-
-			onAdd(map: mapboxgl.Map): void;
-
-			setCoordinates(coordinates: number[]): VideoSource;
-
-			loaded(): boolean;
-
-			update(): void;
-
-			reload(): void;
-
-			prepare(): void;
-
-			getVisibleCoordinates(): number[];
-
-			getTitle(): string;
-
-			serialize(): Object;
-		}
-
-		export interface ImageSource {
-			onAdd(map: mapboxgl.Map): void;
-
-			setCoordinates(coordinates: number[]): ImageSource;
-
-			loaded(): boolean;
-
-			update(): void;
-
-			reload(): void;
-
-			prepare(): void;
-
-			getVisibleCoordinates(): number[]|any[];
-
-			getTitle(): string;
-
-			serialize(): Object;
-		}
-
-		export interface LngLat {
-			wrap(): LngLat;
-
-			toArray(): number[];
-
-			toString(): string;
-
-			convert(input: number[]|LngLat): LngLat;
-		}
-		
-		export function LngLat(lng: number, lat: number): void;
-		
-
-		export interface LngLatBounds {
-			extend(obj: LngLat|LngLatBounds): LngLatBounds;
-
-			getCenter(): LngLat;
-
-			getSouthWest(): LngLat;
-
-			getNorthEast(): LngLat;
-
-			getNorthWest(): LngLat;
-
-			getSouthEast(): LngLat;
-
-			getWest(): LngLat;
-
-			getSouth(): LngLat;
-
-			getEast(): LngLat;
-
-			getNorth(): LngLat;
-
-			toArray(): number[];
-
-			toString(): string;
-
-			convert(input: LngLatBounds|number[]|number[][]): LngLatBounds;
-		}
-
-		export interface Point {
-
-			constructor(options: Object);
-
-			clone(): Point;
-
-			add(p: number): Point;
-
-			sub(p: number): Point;
-
-			mult(k: number): Point;
-
-			div(k: number): Point;
-
-			rotate(a: number): Point;
-
-			matMult(m: number): Point;
-
-			unit(): Point;
-
-			perp(): Point;
-
-			round(): Point;
-
-			mag(): number;
-
-			equals(): boolean;
-
-			dist(): number;
-
-			distSqr(): number;
-
-			angle(): number;
-
-			angleTo(): number;
-
-			angleWidth(): number;
-
-			angleWidthSep(): number;
-		}
-
-		export interface Evented {
-			on(type: string, fn: Function): Evented;
-
-			off(type: string|any, fn: Function): Evented;
-
-			once(type: string, fn: Function): Evented;
-
-			fire(type: string, data: Object): Evented;
-
-			listens(type: string): boolean;
-		}
-
-		export interface StyleLayer {
-			set(layer: any, refLayer: any): void; // Todo: not yet specified in documentation
-			setLayoutProperty(name: any, value: any): void; // Todo: not yet specified in documentation
-			getLayoutProperty(name: any): Object; // Todo: not yet specified in documentation
-			getLayoutValue(name: any, globalProperties: any, featureProperties: any): any; // Todo: not yet specified in documentation
-			setPaintProperty(name: any, value: any, klass: any): void; // Todo: not yet specified in documentation
-			setPaintProperty(name: any, klass: any): Object; // Todo: not yet specified in documentation
-			getPaintValue(name: any, globalProperties: any, featureProperties: any): Object; // Todo: not yet specified in documentation
-			isPaintValueFeatureConstant(name: any): boolean; // Todo: not yet specified in documentation
-			isHidden(zoom: any): boolean; // Todo: not yet specified in documentation
-			updatePaintTransitions(classes: any, options: any, globalOptions: any, animationLoop: any): void; // Todo: not yet specified in documentation
-			updatePaintTransition(name: any, classes: any, options: any, globalOptions: any, animationLoop: any): void; // Todo: not yet specified in documentation
-			recalculate(zoom: any, zoomHistory: any): void; // Todo: not yet specified in documentation
-			serialize(options: any): Object; // Todo: not yet specified in documentation
-		}
-
+		onError(): void;
 	}
 
-	export = mapboxgl;
+	export function Map(options: Object): void;
+
+	export interface Control {
+		addTo(map: mapboxgl.Map): Control;
+
+		remove(): Control;
+	}
+
+	export interface Navigation {
+		onAdd(map: mapboxgl.Map): HTMLElement; // Todo: HTMLElement return type is only an assertion
+	}
+
+	export interface Geolocate {
+		onAdd(map: mapboxgl.Map): HTMLElement; // Todo: HTMLElement return type is only an assertion
+	}
+
+	export interface Attribution {
+		onAdd(map: mapboxgl.Map): HTMLElement; // Todo: HTMLElement return type is only an assertion
+	}
+
+	export interface Popup {
+		onAdd(map: mapboxgl.Map): Popup;
+
+		remove(): Popup;
+
+		getLngLat(): LngLat;
+
+		setLngLat(lnglat: LngLat): Popup;
+
+		setText(text: string): Popup;
+
+		setHTML(html: string): Popup;
+
+		setDOMContent(htmlNode: Node): Popup;
+	}
+
+	export interface GeoJSONSource {
+		setData(data: Object|String): GeoJSONSource;
+
+		onAdd(map: mapboxgl.Map): void;
+
+		loaded(): boolean;
+
+		update(transform: any): void; // Todo: Paramater type not documentet yet
+		reload(): void;
+
+		serialize(): Object;
+
+		// Todo: variables
+		// Todo: - getVisibleCoordinates
+		// Todo: - getTitle
+		// Todo: - queryRenderedFeatures
+		// Todo: - querySourceFeatures
+		// Todo: - redoPlacement
+	}
+
+	export interface VideoSource {
+		getVideo(): VideoSource;
+
+		onAdd(map: mapboxgl.Map): void;
+
+		setCoordinates(coordinates: number[]): VideoSource;
+
+		loaded(): boolean;
+
+		update(): void;
+
+		reload(): void;
+
+		prepare(): void;
+
+		getVisibleCoordinates(): number[];
+
+		getTitle(): string;
+
+		serialize(): Object;
+	}
+
+	export interface ImageSource {
+		onAdd(map: mapboxgl.Map): void;
+
+		setCoordinates(coordinates: number[]): ImageSource;
+
+		loaded(): boolean;
+
+		update(): void;
+
+		reload(): void;
+
+		prepare(): void;
+
+		getVisibleCoordinates(): number[]|any[];
+
+		getTitle(): string;
+
+		serialize(): Object;
+	}
+
+	export interface LngLat {
+		wrap(): LngLat;
+
+		toArray(): number[];
+
+		toString(): string;
+
+		convert(input: number[]|LngLat): LngLat;
+	}
+
+	export function LngLat(lng: number, lat: number): void;
+
+
+	export interface LngLatBounds {
+		extend(obj: LngLat|LngLatBounds): LngLatBounds;
+
+		getCenter(): LngLat;
+
+		getSouthWest(): LngLat;
+
+		getNorthEast(): LngLat;
+
+		getNorthWest(): LngLat;
+
+		getSouthEast(): LngLat;
+
+		getWest(): LngLat;
+
+		getSouth(): LngLat;
+
+		getEast(): LngLat;
+
+		getNorth(): LngLat;
+
+		toArray(): number[];
+
+		toString(): string;
+
+		convert(input: LngLatBounds|number[]|number[][]): LngLatBounds;
+	}
+
+	export interface Point {
+
+		constructor(options: Object);
+
+		clone(): Point;
+
+		add(p: number): Point;
+
+		sub(p: number): Point;
+
+		mult(k: number): Point;
+
+		div(k: number): Point;
+
+		rotate(a: number): Point;
+
+		matMult(m: number): Point;
+
+		unit(): Point;
+
+		perp(): Point;
+
+		round(): Point;
+
+		mag(): number;
+
+		equals(): boolean;
+
+		dist(): number;
+
+		distSqr(): number;
+
+		angle(): number;
+
+		angleTo(): number;
+
+		angleWidth(): number;
+
+		angleWidthSep(): number;
+	}
+
+	export interface Evented {
+		on(type: string, fn: Function): Evented;
+
+		off(type: string|any, fn: Function): Evented;
+
+		once(type: string, fn: Function): Evented;
+
+		fire(type: string, data: Object): Evented;
+
+		listens(type: string): boolean;
+	}
+
+	export interface StyleLayer {
+		set(layer: any, refLayer: any): void; // Todo: not yet specified in documentation
+		setLayoutProperty(name: any, value: any): void; // Todo: not yet specified in documentation
+		getLayoutProperty(name: any): Object; // Todo: not yet specified in documentation
+		getLayoutValue(name: any, globalProperties: any, featureProperties: any): any; // Todo: not yet specified in documentation
+		setPaintProperty(name: any, value: any, klass: any): void; // Todo: not yet specified in documentation
+		setPaintProperty(name: any, klass: any): Object; // Todo: not yet specified in documentation
+		getPaintValue(name: any, globalProperties: any, featureProperties: any): Object; // Todo: not yet specified in documentation
+		isPaintValueFeatureConstant(name: any): boolean; // Todo: not yet specified in documentation
+		isHidden(zoom: any): boolean; // Todo: not yet specified in documentation
+		updatePaintTransitions(classes: any, options: any, globalOptions: any, animationLoop: any): void; // Todo: not yet specified in documentation
+		updatePaintTransition(name: any, classes: any, options: any, globalOptions: any, animationLoop: any): void; // Todo: not yet specified in documentation
+		recalculate(zoom: any, zoomHistory: any): void; // Todo: not yet specified in documentation
+		serialize(options: any): Object; // Todo: not yet specified in documentation
+	}
+
+}
+
+export = mapboxgl;
