@@ -443,6 +443,4 @@ declare namespace mapboxgl {
 
 }
 
-declare module 'mapbox-gl' {
-    export = mapboxgl;
-}
+export = mapboxgl;
