@@ -1,6 +1,15 @@
+// Type definitions for Mapbox GL JS
+// Project: https://github.com/mapbox/mapbox-gl-js
+// Definitions by: Dominik Bruderer <https://twitter.com/dobrud>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 namespace mapboxgl {
 	let accessToken: string;
-	export interface Map {
+
+    /**
+     * Map
+     */
+    export interface Map {
 
 		addControl(control: Control): mapboxgl.Map;
 
@@ -45,7 +54,8 @@ namespace mapboxgl {
 		addLayer(layer: StyleLayer|Object, before: string): mapboxgl.Map;
 
 		removeLayer(id: string): mapboxgl.Map;  // Todo: add throws Error
-		getLayer(id: string): Object;
+
+        getLayer(id: string): Object;
 
 		setFilter(layer: string, filter: any[]): mapboxgl.Map;
 
@@ -76,26 +86,94 @@ namespace mapboxgl {
 		onError(): void;
 	}
 
-	export function Map(options: Object): void;
+    export interface MapboxOptions {
+        touchZoomRotate?: boolean;
 
+        minZoom?: number;
+
+        maxZoom?: number;
+
+        style?: Object|string;
+
+        hash?: boolean;
+
+        interactive?: boolean;
+
+        bearingSnap?: number;
+
+        classes?: string[];
+
+        attributionControl?: boolean;
+
+        container?: string|HTMLElement;
+
+        preserveDrawingBuffer?: boolean;
+
+        maxBounds?: LngLatBounds|number[][];
+
+        scrollZoom?: boolean;
+
+        boxZoom?: boolean;
+
+        dragRotate?: boolean;
+
+        dragPan?: boolean;
+
+        keyboard?: boolean;
+
+        doubleClickZoom?: boolean;
+
+        failIfMayorPerformanceCaveat?: boolean;
+    }
+
+	export function Map(options?: MapboxOptions): void;
+
+    /**
+     * Control
+     */
 	export interface Control {
 		addTo(map: mapboxgl.Map): Control;
 
 		remove(): Control;
 	}
 
+    /**
+     * ControlOptions
+     */
+    export interface ControlOptions {
+        position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
+    }
+
+    /**
+     * Navigation
+     */
 	export interface Navigation {
 		onAdd(map: mapboxgl.Map): HTMLElement; // Todo: HTMLElement return type is only an assertion
 	}
 
+    export function Navigation(options?: ControlOptions): void;
+
+    /**
+     * Geolocate
+     */
 	export interface Geolocate {
 		onAdd(map: mapboxgl.Map): HTMLElement; // Todo: HTMLElement return type is only an assertion
 	}
 
+    export function Geolocate(options?: ControlOptions): void;
+
+    /**
+     * Attribution
+     */
 	export interface Attribution {
 		onAdd(map: mapboxgl.Map): HTMLElement; // Todo: HTMLElement return type is only an assertion
 	}
 
+    export function Attribution(options?: ControlOptions): void;
+
+    /**
+     * Popup
+     */
 	export interface Popup {
 		onAdd(map: mapboxgl.Map): Popup;
 
@@ -112,6 +190,19 @@ namespace mapboxgl {
 		setDOMContent(htmlNode: Node): Popup;
 	}
 
+    export interface PopupOptions {
+        closeButton?: boolean;
+
+        closeOnClick?: boolean;
+
+        anchor?: 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+    }
+
+    export function Popup(options?: PopupOptions): void;
+
+    /**
+     * GeoJSONSource
+     */
 	export interface GeoJSONSource {
 		setData(data: Object|String): GeoJSONSource;
 
@@ -119,8 +210,9 @@ namespace mapboxgl {
 
 		loaded(): boolean;
 
-		update(transform: any): void; // Todo: Paramater type not documentet yet
-		reload(): void;
+		update(transform: any): void; // Todo: Parameter type not documented yet
+
+        reload(): void;
 
 		serialize(): Object;
 
@@ -132,6 +224,27 @@ namespace mapboxgl {
 		// Todo: - redoPlacement
 	}
 
+    export interface GeoJSONSourceOptions {
+        data?: Object|string;
+
+        maxzoom?: number;
+
+        buffer?: number;
+
+        tolerance?: number;
+
+        cluster?: number;
+
+        clusterRadius?: number;
+
+        clusterMaxZoom?: number;
+    }
+
+    export function GeoJSONSource(options?: GeoJSONSourceOptions): void;
+
+    /**
+     * VideoSource
+     */
 	export interface VideoSource {
 		getVideo(): VideoSource;
 
@@ -154,6 +267,17 @@ namespace mapboxgl {
 		serialize(): Object;
 	}
 
+    export interface VideoSourceOptions {
+        urls?: string[];
+
+        coordinates?: number[][];
+    }
+
+    export function VideoSource(options?: VideoSourceOptions): void;
+
+    /**
+     * ImageSource
+     */
 	export interface ImageSource {
 		onAdd(map: mapboxgl.Map): void;
 
@@ -174,7 +298,18 @@ namespace mapboxgl {
 		serialize(): Object;
 	}
 
-	export interface LngLat {
+    export interface ImageSourceOptions {
+        urls?: string[];
+
+        coordinates?: number[][];
+    }
+
+    export function ImageSource(options?: ImageSourceOptions): void;
+
+    /**
+     * LngLat
+     */
+    export interface LngLat {
 		wrap(): LngLat;
 
 		toArray(): number[];
@@ -186,7 +321,9 @@ namespace mapboxgl {
 
 	export function LngLat(lng: number, lat: number): void;
 
-
+    /**
+     * LngLatBounds
+     */
 	export interface LngLatBounds {
 		extend(obj: LngLat|LngLatBounds): LngLatBounds;
 
@@ -215,6 +352,12 @@ namespace mapboxgl {
 		convert(input: LngLatBounds|number[]|number[][]): LngLatBounds;
 	}
 
+    export function LngLatBounds(sw: LngLat, ne: LngLat): void;
+
+    /**
+     * Point
+     */
+    // Todo: Pull out interface to seperate definition for Module "point-geometry"
 	export interface Point {
 
 		constructor(options: Object);
@@ -256,6 +399,9 @@ namespace mapboxgl {
 		angleWidthSep(): number;
 	}
 
+    /**
+     * Evented
+     */
 	export interface Evented {
 		on(type: string, fn: Function): Evented;
 
@@ -268,6 +414,9 @@ namespace mapboxgl {
 		listens(type: string): boolean;
 	}
 
+    /**
+     * StyleLayer
+     */
 	export interface StyleLayer {
 		set(layer: any, refLayer: any): void; // Todo: not yet specified in documentation
 		setLayoutProperty(name: any, value: any): void; // Todo: not yet specified in documentation
@@ -283,6 +432,8 @@ namespace mapboxgl {
 		recalculate(zoom: any, zoomHistory: any): void; // Todo: not yet specified in documentation
 		serialize(options: any): Object; // Todo: not yet specified in documentation
 	}
+
+    export function StyleLayer(layer: any, refLayer: any): void; // Todo: not yet specified in documentation
 
 }
 
