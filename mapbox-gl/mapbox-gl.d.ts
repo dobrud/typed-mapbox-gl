@@ -3,13 +3,13 @@
 // Definitions by: Dominik Bruderer <https://twitter.com/dobrud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-namespace mapboxgl {
+declare namespace mapboxgl {
 	let accessToken: string;
 
     /**
      * Map
      */
-    export interface Map {
+    export interface Map extends Evented {
 
 		addControl(control: Control): mapboxgl.Map;
 
@@ -51,7 +51,7 @@ namespace mapboxgl {
 
 		getSource(id: string): mapboxgl.Map;
 
-		addLayer(layer: StyleLayer|Object, before: string): mapboxgl.Map;
+		addLayer(layer: StyleLayer|Object, before?: string): mapboxgl.Map;
 
 		removeLayer(id: string): mapboxgl.Map;  // Todo: add throws Error
 
@@ -89,8 +89,10 @@ namespace mapboxgl {
     export interface MapboxOptions {
         touchZoomRotate?: boolean;
 
+        center?: LngLat|number[];
+
         zoom?: number;
-        
+
         minZoom?: number;
 
         maxZoom?: number;
@@ -102,6 +104,8 @@ namespace mapboxgl {
         interactive?: boolean;
 
         bearingSnap?: number;
+
+        bearing?: number;
 
         classes?: string[];
 
@@ -128,7 +132,7 @@ namespace mapboxgl {
         failIfMayorPerformanceCaveat?: boolean;
     }
 
-	export function Map(options?: MapboxOptions): void;
+	export function Map(options?: MapboxOptions): mapboxgl.Map;
 
     /**
      * Control
@@ -153,7 +157,7 @@ namespace mapboxgl {
 		onAdd(map: mapboxgl.Map): HTMLElement; // Todo: HTMLElement return type is only an assertion
 	}
 
-    export function Navigation(options?: ControlOptions): void;
+    export function Navigation(options?: ControlOptions): mapboxgl.Navigation;
 
     /**
      * Geolocate
@@ -177,13 +181,13 @@ namespace mapboxgl {
      * Popup
      */
 	export interface Popup {
-		onAdd(map: mapboxgl.Map): Popup;
+        addTo(map: mapboxgl.Map): Popup;
 
 		remove(): Popup;
 
 		getLngLat(): LngLat;
 
-		setLngLat(lnglat: LngLat): Popup;
+		setLngLat(lnglat: LngLat|number[]): Popup;
 
 		setText(text: string): Popup;
 
@@ -200,7 +204,7 @@ namespace mapboxgl {
         anchor?: 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
     }
 
-    export function Popup(options?: PopupOptions): void;
+    export function Popup(options?: PopupOptions): Popup;
 
     /**
      * GeoJSONSource
@@ -242,7 +246,7 @@ namespace mapboxgl {
         clusterMaxZoom?: number;
     }
 
-    export function GeoJSONSource(options?: GeoJSONSourceOptions): void;
+    export function GeoJSONSource(options?: GeoJSONSourceOptions): GeoJSONSource;
 
     /**
      * VideoSource
@@ -275,7 +279,7 @@ namespace mapboxgl {
         coordinates?: number[][];
     }
 
-    export function VideoSource(options?: VideoSourceOptions): void;
+    export function VideoSource(options?: VideoSourceOptions): VideoSource;
 
     /**
      * ImageSource
@@ -362,8 +366,6 @@ namespace mapboxgl {
     // Todo: Pull out interface to seperate definition for Module "point-geometry"
 	export interface Point {
 
-		constructor(options: Object);
-
 		clone(): Point;
 
 		add(p: number): Point;
@@ -400,6 +402,8 @@ namespace mapboxgl {
 
 		angleWidthSep(): number;
 	}
+
+    export function Point(options?: Object): void;
 
     /**
      * Evented
@@ -439,4 +443,6 @@ namespace mapboxgl {
 
 }
 
-export = mapboxgl;
+declare module 'mapbox-gl' {
+    export = mapboxgl;
+}
