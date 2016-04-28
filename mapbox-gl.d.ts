@@ -89,6 +89,8 @@ namespace mapboxgl {
     export interface MapboxOptions {
         touchZoomRotate?: boolean;
 
+        zoom?: number;
+        
         minZoom?: number;
 
         maxZoom?: number;
