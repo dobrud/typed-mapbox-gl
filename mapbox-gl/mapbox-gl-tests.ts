@@ -12,7 +12,7 @@ mapboxgl.accessToken = 'foo';
 /**
  * Display a Map
  */
-let map = mapboxgl.Map({
+let map = new mapboxgl.Map({
     container: 'map', // container id
     style: 'mapbox://styles/mapbox/streets-v8', //stylesheet location
     center: [-74.50, 40], // starting position
@@ -23,7 +23,7 @@ let map = mapboxgl.Map({
 /**
  * Create and style marker clusters
  */
-map = mapboxgl.Map({
+map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/dark-v8',
     center: [-103.59179687498357, 40.66995747013945],
@@ -100,7 +100,7 @@ map.on('load', function(){
 /**
  * Add a GeoJSON line
  */
-map = mapboxgl.Map({
+map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v8',
     center: [-122.486052, 37.830348],
@@ -161,14 +161,14 @@ map.on('load', function () {
  * Display a Popup
  */
 
-map = mapboxgl.Map({
+map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v8',
     center: [-96, 37.8],
     zoom: 3
 });
 
-var tooltip = mapboxgl.Popup({closeOnClick: false})
+var tooltip = new mapboxgl.Popup({closeOnClick: false})
     .setLngLat([-96, 37.8])
     .setHTML('<h1>Hello World!</h1>')
     .addTo(map);
@@ -263,7 +263,7 @@ var mapStyle = {
     ]
 };
 
-map = mapboxgl.Map({
+map = new mapboxgl.Map({
     container: 'map',
     maxZoom: 5.99,
     minZoom: 4,
@@ -312,7 +312,7 @@ var videoStyle = {
     }]
 };
 
-map = mapboxgl.Map({
+map = new mapboxgl.Map({
     container: 'map',
     minZoom: 14,
     zoom: 17,
@@ -325,7 +325,7 @@ map = mapboxgl.Map({
 /**
  * Add GeoJSON Markers
  */
-map = mapboxgl.Map({
+map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v8',
     center: [-96, 37.8],

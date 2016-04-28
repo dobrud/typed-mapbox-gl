@@ -9,6 +9,10 @@ declare namespace mapboxgl {
     /**
      * Map
      */
+    export class Map {
+        constructor(options?: MapboxOptions);
+    }
+
     export interface Map extends Evented {
 
 		addControl(control: Control): mapboxgl.Map;
@@ -132,8 +136,6 @@ declare namespace mapboxgl {
         failIfMayorPerformanceCaveat?: boolean;
     }
 
-	export function Map(options?: MapboxOptions): mapboxgl.Map;
-
     /**
      * Control
      */
@@ -153,34 +155,44 @@ declare namespace mapboxgl {
     /**
      * Navigation
      */
-	export interface Navigation {
+    export class Navigation {
+        constructor(options?: ControlOptions);
+    }
+
+    export interface Navigation {
 		onAdd(map: mapboxgl.Map): HTMLElement; // Todo: HTMLElement return type is only an assertion
 	}
-
-    export function Navigation(options?: ControlOptions): mapboxgl.Navigation;
 
     /**
      * Geolocate
      */
-	export interface Geolocate {
+    export class Geolocate {
+        constructor(options?: ControlOptions);
+    }
+
+    export interface Geolocate {
 		onAdd(map: mapboxgl.Map): HTMLElement; // Todo: HTMLElement return type is only an assertion
 	}
-
-    export function Geolocate(options?: ControlOptions): void;
 
     /**
      * Attribution
      */
-	export interface Attribution {
+    export class Attribution {
+        constructor(options?: ControlOptions);
+    }
+
+    export interface Attribution {
 		onAdd(map: mapboxgl.Map): HTMLElement; // Todo: HTMLElement return type is only an assertion
 	}
-
-    export function Attribution(options?: ControlOptions): void;
 
     /**
      * Popup
      */
-	export interface Popup {
+    export class Popup {
+        constructor(options?: PopupOptions);
+    }
+
+    export interface Popup {
         addTo(map: mapboxgl.Map): Popup;
 
 		remove(): Popup;
@@ -204,12 +216,14 @@ declare namespace mapboxgl {
         anchor?: 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
     }
 
-    export function Popup(options?: PopupOptions): Popup;
-
     /**
      * GeoJSONSource
      */
-	export interface GeoJSONSource {
+    export class GeoJSONSource {
+        constructor(options?: GeoJSONSourceOptions);
+    }
+
+    export interface GeoJSONSource {
 		setData(data: Object|String): GeoJSONSource;
 
 		onAdd(map: mapboxgl.Map): void;
@@ -246,12 +260,14 @@ declare namespace mapboxgl {
         clusterMaxZoom?: number;
     }
 
-    export function GeoJSONSource(options?: GeoJSONSourceOptions): GeoJSONSource;
-
     /**
      * VideoSource
      */
-	export interface VideoSource {
+    export class VideoSource {
+        constructor(options?: VideoSourceOptions);
+    }
+
+    export interface VideoSource {
 		getVideo(): VideoSource;
 
 		onAdd(map: mapboxgl.Map): void;
@@ -279,12 +295,14 @@ declare namespace mapboxgl {
         coordinates?: number[][];
     }
 
-    export function VideoSource(options?: VideoSourceOptions): VideoSource;
-
     /**
      * ImageSource
      */
-	export interface ImageSource {
+    export class ImageSource {
+        constructor(options?: ImageSourceOptions);
+    }
+
+    export interface ImageSource {
 		onAdd(map: mapboxgl.Map): void;
 
 		setCoordinates(coordinates: number[]): ImageSource;
@@ -310,11 +328,13 @@ declare namespace mapboxgl {
         coordinates?: number[][];
     }
 
-    export function ImageSource(options?: ImageSourceOptions): void;
-
     /**
      * LngLat
      */
+    export class LngLat {
+        constructor(lng: number, lat: number);
+    }
+
     export interface LngLat {
 		wrap(): LngLat;
 
@@ -325,12 +345,14 @@ declare namespace mapboxgl {
 		convert(input: number[]|LngLat): LngLat;
 	}
 
-	export function LngLat(lng: number, lat: number): void;
-
     /**
      * LngLatBounds
      */
-	export interface LngLatBounds {
+    export class LngLatBounds {
+        constructor(sw: LngLat, ne: LngLat);
+    }
+
+    export interface LngLatBounds {
 		extend(obj: LngLat|LngLatBounds): LngLatBounds;
 
 		getCenter(): LngLat;
@@ -358,13 +380,15 @@ declare namespace mapboxgl {
 		convert(input: LngLatBounds|number[]|number[][]): LngLatBounds;
 	}
 
-    export function LngLatBounds(sw: LngLat, ne: LngLat): void;
-
     /**
      * Point
      */
     // Todo: Pull out interface to seperate definition for Module "point-geometry"
-	export interface Point {
+    export class Point {
+        constructor(options?: Object);
+    }
+
+    export interface Point {
 
 		clone(): Point;
 
@@ -403,8 +427,6 @@ declare namespace mapboxgl {
 		angleWidthSep(): number;
 	}
 
-    export function Point(options?: Object): void;
-
     /**
      * Evented
      */
@@ -423,7 +445,11 @@ declare namespace mapboxgl {
     /**
      * StyleLayer
      */
-	export interface StyleLayer {
+    export class StyleLayer {
+        constructor(layer: any, refLayer: any); // Todo: not yet specified in documentation
+    }
+
+    export interface StyleLayer {
 		set(layer: any, refLayer: any): void; // Todo: not yet specified in documentation
 		setLayoutProperty(name: any, value: any): void; // Todo: not yet specified in documentation
 		getLayoutProperty(name: any): Object; // Todo: not yet specified in documentation
@@ -438,9 +464,6 @@ declare namespace mapboxgl {
 		recalculate(zoom: any, zoomHistory: any): void; // Todo: not yet specified in documentation
 		serialize(options: any): Object; // Todo: not yet specified in documentation
 	}
-
-    export function StyleLayer(layer: any, refLayer: any): void; // Todo: not yet specified in documentation
-
 }
 
 export = mapboxgl;
