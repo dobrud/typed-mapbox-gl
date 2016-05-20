@@ -5,6 +5,8 @@
 
 /// <reference path="./typings/index.d.ts" />
 
+import {GeoJSON} from './typings/globals/geojson';
+
 declare namespace mapboxgl {
 	let accessToken: string;
 
