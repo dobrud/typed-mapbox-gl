@@ -14,3 +14,8 @@ If you need only a single class:
 ``` typescript
 import {LngLat} from 'mapbox-gl';
 ```
+
+## Run tests
+``` shell
+tsc mapbox-gl-tests.ts
+```
