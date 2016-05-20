@@ -4,7 +4,8 @@ Type definitions for Mapbox GL JS
 ## How to use
 ``` shell
 npm install mapbox-gl --save
-typings install github:dobrud/typed-mapbox-gl/mapbox-gl.d.ts[#commitish] --save
+typings install dt~geojson --global --save
+typings install github:dobrud/typed-mapbox-gl --global --save
 ```
 Usage in code:
 ``` typescript
@@ -17,5 +18,6 @@ import {LngLat} from 'mapbox-gl';
 
 ## Run tests
 ``` shell
+typings install
 tsc mapbox-gl-tests.ts
 ```
