@@ -42,9 +42,9 @@ declare namespace mapboxgl {
 
 		querySourceFeatures(sourceID: string, params: {sourceLayer?: string, filter?: any[]}): Object[];
 
-		setStyle(style: Object): this;
+		setStyle(style: mapboxgl.Style): this;
 
-		getStyle(): Object;
+		getStyle(): mapboxgl.Style;
 
 		addSource(id: string, source: Object): this;
 
@@ -52,11 +52,11 @@ declare namespace mapboxgl {
 
 		getSource(id: string): Object;
 
-		addLayer(layer: Object, before?: string): this;
+		addLayer(layer: mapboxgl.Layer, before?: string): this;
 
 		removeLayer(id: string): this;
 
-		getLayer(id: string): Object;
+		getLayer(id: string): mapboxgl.Layer;
 
 		setFilter(layer: string, filter: any[]): this;
 
@@ -150,7 +150,7 @@ declare namespace mapboxgl {
 		maxZoom?: number;
 
 		/** stylesheet location */
-		style?: Object | string;
+		style?: Style | string;
 
 		/** If true, the map will track and update the page URL according to map position */
 		hash?: boolean;
@@ -366,6 +366,27 @@ declare namespace mapboxgl {
 
 		anchor?: 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 	}
+
+	export interface Style {
+		bearing?: number;
+		center?: Array<number>;
+		glyphs?: string;
+		layers?: Array<Layer>;
+		metadata?: any;
+		name?: string;
+		pitch?: number;
+		sources?: any;
+		sprite?: string;
+		transition?: Transition;
+		version: number;
+		zoom?: number;
+	}
+
+	export interface Transition {
+		delay?: number;
+		duration?: number;
+	}
+
 
 	/**
 	 * GeoJSONSource
@@ -639,7 +660,158 @@ declare namespace mapboxgl {
 		drag?: {data: mapboxgl.EventData};
 		dragend?: {data: mapboxgl.EventData};
 		pitch?: {data: mapboxgl.EventData};
+	}
+	
+	export interface Layer {
+		id: string;
+		type?: "fill" | "line" | "symbol" | "circle" | "raster" | "background";
 
+		//metadata
+		ref?: string;
+
+		/** Docs say this is optional but errors say it isn't */
+		source: string;
+
+		"source-layer"?: string;
+
+		minzoom?: number;
+		maxzoom?: number;
+
+		interactive?: boolean;
+
+		filter?: Array<any>;
+		layout?: BackgroundLayout | FillLayout | LineLayout | SymbolLayout | RasterLayout | CircleLayout;
+		paint?: BackgroundPaint | FillPaint | LinePaint | SymbolPaint | RasterPaint | CirclePaint;
+	}
+
+	export interface StyleFunction {
+		stops: Array<Array<any>>;
+		property?: string;
+		base?: number;
+		type?: "continuous" | "interval" | "categorical";
+	}
+
+	export interface BackgroundLayout {
+		visibility?: "visible" | "none";
+	}
+	export interface BackgroundPaint {
+		"background-color": string;
+		"background-pattern": string;
+		"background-opacity": number;
+	}
+
+	export interface FillLayout {
+		visibility?: "visible" | "none";
+	}
+	export interface FillPaint {
+		"fill-antialias"?: boolean;
+		"fill-opacity"?: number;
+		"fill-color"?: string;
+		"fill-outline-color": string;
+		"fill-translate"?: Array<number>;
+		"fill-translate-anchor"?: "map" | "viewport";
+		"fill-pattern"?: "string";
+	}
+
+	export interface LineLayout {
+		visibility?: "visible" | "none";
+
+		"line-cap"?: "butt" | "round" | "square";
+		"line-join"?: "bevel" | "round" | "miter";
+		"line-miter-limit"?: number;
+		"line-round-limit"?: number;
+	}
+	export interface LinePaint {
+		"line-opacity"?: number;
+		"line-color"?: string;
+		"line-translate"?: Array<number>;
+		"line-translate-anchor"?: "map" | "viewport";
+		"line-width"?: number;
+		"line-gap-width"?: number;
+		"line-offset"?: number;
+		"line-blur"?: number;
+		"line-dasharray"?: Array<number>;
+		"line-pattern"?: string;
+	}
+
+	export interface SymbolLayout {
+		visibility?: "visible" | "none";
+
+		"symbol-placement"?: "point" | "line";
+		"symbol-spacing"?: number;
+		"symbol-avoid-edges"?: boolean;
+		"icon-allow-overlap"?: boolean;
+		"icon-ignore-placement"?: boolean;
+		"icon-optional"?: boolean;
+		"icon-rotation-alignment"?: "map" | "viewport";
+		"icon-size"?: number;
+		"icon-image"?: string;
+		"icon-rotate"?: number;
+		"icon-padding"?: number;
+		"icon-keep-upright"?: boolean;
+		"icon-offset"?: Array<number>;
+		"text-rotation-alignment"?: "map" | "viewport";
+		"text-field"?: string;
+		"text-font"?: string;
+		"text-size"?: number;
+		"text-max-width"?: number;
+		"text-line-height"?: number;
+		"text-letter-spacing"?: number;
+		"text-justify"?: "left" | "center" | "right";
+		"text-anchor"?: "center" | "left" | "right" | "top" | "bottom" | "top-left" | "top-right" | "bottom-left" | "bottom-right";
+		"text-max-angle"?: number;
+		"text-rotate"?: number;
+		"text-padding"?: number;
+		"text-keep-upright"?: boolean;
+		"text-transform"?: "none" | "uppercase" | "lowercase";
+		"text-offset"?: Array<number>;
+		"text-allow-overlap"?: boolean;
+		"text-ignore-placement"?: boolean;
+		"text-optional"?: boolean;
+
+	}
+	export interface SymbolPaint {
+		"icon-opacity"?: number;
+		"icon-color"?: string;
+		"icon-halo-color"?: string;
+		"icon-halo-width"?: number;
+		"icon-halo-blur"?: number;
+		"icon-translate"?: Array<number>;
+		"icon-translate-anchor"?: "map" | "viewport";
+		"text-opacity"?: number;
+		"text-color"?: "string";
+		"text-halo-color"?: "string";
+		"text-halo-width"?: number;
+		"text-halo-blur"?: number;
+		"text-translate"?: Array<number>;
+		"text-translate-anchor"?: "map" | "viewport";
+	}
+
+	export interface RasterLayout {
+		visibility?: "visible" | "none";
+	}
+
+	export interface RasterPaint {
+		"raster-opacity"?: number;
+		"raster-hue-rotate"?: number;
+		"raster-brightness-min"?: number;
+		"raster-brightness-max"?: number;
+		"raster-saturation"?: number;
+		"raster-contrast"?: number;
+		"raster-fade-duration"?: number;
+	}
+
+	export interface CircleLayout {
+		visibility?: "visible" | "none";
+	}
+
+	export interface CirclePaint {
+		"circle-radius"?: number | StyleFunction;
+		"circle-color"?: number | StyleFunction;
+		"circle-blur"?: number;
+		"circle-opacity"?: number;
+		"circle-translate"?: Array<number>;
+		"circle-translate-anchor"?: "map" | "viewport";
 	}
 }
 
