@@ -134,48 +134,69 @@ declare namespace mapboxgl {
 	}
 
 	export interface MapboxOptions {
+		/** If true, enable the "pinch to rotate and zoom" interaction (see TouchZoomRotateHandler). */
 		touchZoomRotate?: boolean;
 
-		center?: mapboxgl.LngLat|number[];
+		/** initial map center */
+		center?: mapboxgl.LngLat | number[];
 
+		/** Initial zoom level */
 		zoom?: number;
 
+		/** Minimum zoom of the map */
 		minZoom?: number;
 
+		/** Maximum zoom of the map */
 		maxZoom?: number;
 
-		style?: Object|string;
+		/** stylesheet location */
+		style?: Object | string;
 
+		/** If true, the map will track and update the page URL according to map position */
 		hash?: boolean;
 
+		/** If false, no mouse, touch, or keyboard listeners are attached to the map, so it will not respond to input */
 		interactive?: boolean;
 
+		/** Snap to north threshold in degrees. */
 		bearingSnap?: number;
 
 		bearing?: number;
 
+		/** Style class names with which to initialize the map */
 		classes?: string[];
 
+		/** If true, an attribution control will be added to the map. */
 		attributionControl?: boolean;
 
-		container?: string|Element;
+		/** ID of the container element */
+		container?: string | Element;
 
+		/** If true, The maps canvas can be exported to a PNG using map.getCanvas().toDataURL();. This is false by default as a performance optimization. */
 		preserveDrawingBuffer?: boolean;
 
-		maxBounds?: mapboxgl.LngLatBounds|number[][];
+		/** If set, the map is constrained to the given bounds. */
+		maxBounds?: mapboxgl.LngLatBounds | number[][];
 
+		/** If true, enable the "scroll to zoom" interaction */
 		scrollZoom?: boolean;
 
+		/** If true, enable the "box zoom" interaction (see BoxZoomHandler) */
 		boxZoom?: boolean;
 
+		/** If true, enable the "drag to rotate" interaction (see DragRotateHandler). */
 		dragRotate?: boolean;
 
+		/** If true, enable the "drag to pan" interaction (see DragPanHandler). */
 		dragPan?: boolean;
 
+		/** If true, enable keyboard shortcuts (see KeyboardHandler). */
 		keyboard?: boolean;
 
+		/** If true, enable the "double click to zoom" interaction (see DoubleClickZoomHandler). */
 		doubleClickZoom?: boolean;
 
+		/** If true, map creation will fail if the implementation determines that the performance of the created WebGL context would be dramatically lower than expected. */
 		failIfMayorPerformanceCaveat?: boolean;
 	}
 
@@ -409,10 +430,13 @@ declare namespace mapboxgl {
 	export class LngLat {
 		constructor(lng: number, lat: number);
 
+		/** Return a new LngLat object whose longitude is wrapped to the range (-180, 180). */
 		wrap(): mapboxgl.LngLat;
 
+		/** Return a LngLat as an array */
 		toArray(): number[];
 
+		/** Return a LngLat as a string */
 		toString(): string;
 
 		static convert(input: number[]|mapboxgl.LngLat): mapboxgl.LngLat;
@@ -424,31 +448,44 @@ declare namespace mapboxgl {
 	export class LngLatBounds {
 		constructor(sw?: LngLat, ne?: LngLat);
 
+		/** Extend the bounds to include a given LngLat or LngLatBounds. */
 		extend(obj: mapboxgl.LngLat | mapboxgl.LngLatBounds): this;
 
+		/** Get the point equidistant from this box's corners */
 		getCenter(): mapboxgl.LngLat;
 
+		/** Get southwest corner */
 		getSouthWest(): mapboxgl.LngLat;
 
+		/** Get northeast corner */
 		getNorthEast(): mapboxgl.LngLat;
 
+		/** Get northwest corner */
 		getNorthWest(): mapboxgl.LngLat;
 
+		/** Get southeast corner */
 		getSouthEast(): mapboxgl.LngLat;
 
+		/** Get west edge longitude */
 		getWest(): number;
 
+		/** Get south edge latitude */
 		getSouth(): number;
 
+		/** Get east edge longitude */
 		getEast(): number;
 
+		/** Get north edge latitude */
 		getNorth(): number;
 
-		toArray(): number[];
+		/** Returns a LngLatBounds as an array */
+		toArray(): number[][];
 
+		/** Return a LngLatBounds as a string */
 		toString(): string;
 
-		static convert(input: mapboxgl.LngLatBounds|number[]|number[][]): mapboxgl.LngLatBounds;
+		/** Convert an array to a LngLatBounds object, or return an existing LngLatBounds object unchanged. */
+		static convert(input: mapboxgl.LngLatBounds | number[] | number[][]): mapboxgl.LngLatBounds;
 	}
 
 	/**
@@ -530,9 +567,12 @@ declare namespace mapboxgl {
 	 * AnimationOptions
 	 */
 	export interface AnimationOptions {
+		/** Number in milliseconds */
 		duration?: number;
 		easing?: Function;
+		/** point, origin of movement relative to map center */
 		offset?: number[];
+		/** When set to false, no animation happens */
 		animate?: boolean;
 	}
 
@@ -540,10 +580,15 @@ declare namespace mapboxgl {
 	 * CameraOptions
 	 */
 	export interface CameraOptions {
-		center?: mapboxgl.LngLat|number[];
+		/** Map center */
+		center?: mapboxgl.LngLat | number[];
+		/** Map zoom level */
 		zoom?: number;
+		/** Map rotation bearing in degrees counter-clockwise from north */
 		bearing?: number;
+		/** Map angle in degrees at which the camera is looking at the ground */
 		pitch?: number;
+		/** If zooming, the zoom center (defaults to map center) */
 		around?: mapboxgl.LngLat;
 	}
 
