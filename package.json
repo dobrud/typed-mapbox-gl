@@ -1,0 +1,21 @@
+{
+  "name": "typed-mapbox-gl",
+  "version": "1.0.0",
+  "description": "Type definitions for Mapbox GL JS",
+  "scripts": {
+    "test": "./node_modules/.bin/tsc mapbox-gl-tests.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dobrud/typed-mapbox-gl.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dobrud/typed-mapbox-gl/issues"
+  },
+  "homepage": "https://github.com/dobrud/typed-mapbox-gl#readme",
+  "devDependencies": {
+    "tsc": "^1.20150623.0",
+    "typings": "^1.0.4"
+  }
+}
