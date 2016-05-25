@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Type definitions for Mapbox GL JS",
   "scripts": {
-    "test": "./node_modules/.bin/tsc mapbox-gl-tests.ts"
+    "test": "./node_modules/.bin/typings install && ./node_modules/.bin/tsc mapbox-gl-tests.ts"
   },
   "repository": {
     "type": "git",
@@ -15,7 +15,7 @@
   },
   "homepage": "https://github.com/dobrud/typed-mapbox-gl#readme",
   "devDependencies": {
-    "tsc": "^1.20150623.0",
+    "typescript": "^1.8.10",
     "typings": "^1.0.4"
   }
 }
