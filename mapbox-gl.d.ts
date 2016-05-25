@@ -46,11 +46,11 @@ declare namespace mapboxgl {
 
 		getStyle(): mapboxgl.Style;
 
-		addSource(id: string, source: Object): this;
+		addSource(id: string, source: Source): this;
 
 		removeSource(id: string): this;
 
-		getSource(id: string): Object;
+		getSource(id: string): Source;
 
 		addLayer(layer: mapboxgl.Layer, before?: string): this;
 
@@ -387,11 +387,18 @@ declare namespace mapboxgl {
 		duration?: number;
 	}
 
+	export interface Source {
+		type: "vector" | "raster" | "geojson" | "image" | "video";
+	}
+
+
 
 	/**
 	 * GeoJSONSource
 	 */
-	export class GeoJSONSource {
+	export class GeoJSONSource implements Source {
+		type: "geojson";
+
 		constructor(options?: mapboxgl.GeoJSONSourceOptions);
 
 		setData(data: GeoJSON.FeatureCollection<GeoJSON.GeometryObject> | String): this;
@@ -416,7 +423,9 @@ declare namespace mapboxgl {
 	/**
 	 * VideoSource
 	 */
-	export class VideoSource {
+	export class VideoSource implements Source {
+		type: "video";
+
 		constructor(options?: mapboxgl.VideoSourceOptions);
 
 		getVideo(): Object;
@@ -433,7 +442,9 @@ declare namespace mapboxgl {
 	/**
 	 * ImageSource
 	 */
-	export class ImageSource {
+	export class ImageSource implements Source {
+		type: "image";
+
 		constructor(options?: mapboxgl.ImageSourceOptions);
 
 		setCoordinates(coordinates: number[][]): this;
