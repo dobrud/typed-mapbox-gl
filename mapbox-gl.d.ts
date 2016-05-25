@@ -428,6 +428,9 @@ declare namespace mapboxgl {
 	 * LngLat
 	 */
 	export class LngLat {
+		lng: number;
+		lat: number;
+
 		constructor(lng: number, lat: number);
 
 		/** Return a new LngLat object whose longitude is wrapped to the range (-180, 180). */
