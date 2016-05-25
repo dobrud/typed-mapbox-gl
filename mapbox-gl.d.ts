@@ -34,7 +34,7 @@ declare namespace mapboxgl {
 
 		setMaxZoom(maxZoom: number): this;
 
-		project(lnglat: mapboxgl.LngLat): number[]; // returns x and y coordinates
+		project(lnglat: mapboxgl.LngLat): { x: number, y: number };
 
 		unproject(point: number[]): mapboxgl.LngLat;
 
