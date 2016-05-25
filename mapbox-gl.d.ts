@@ -690,7 +690,7 @@ declare namespace mapboxgl {
 	
 	export interface Layer {
 		id: string;
-		type?: "fill" | "line" | "symbol" | "circle" | "raster" | "background";
+		type?: "fill" | "line" | "symbol" | "circle" | "raster" | "background" | string; //TODO: Ideally we wouldn't accept string here, just these specific strings
 
 		//metadata
 		ref?: string;
