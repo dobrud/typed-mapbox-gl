@@ -46,11 +46,11 @@ declare namespace mapboxgl {
 
 		getStyle(): mapboxgl.Style;
 
-		addSource(id: string, source: Source): this;
+		addSource(id: string, source: VectorSource | RasterSource | GeoJSONSource | ImageSource | VideoSource | GeoJSONSourceRaw): this;
 
 		removeSource(id: string): this;
 
-		getSource(id: string): Source;
+		getSource(id: string): VectorSource | RasterSource | GeoJSONSource | ImageSource | VideoSource;
 
 		addLayer(layer: mapboxgl.Layer, before?: string): this;
 
@@ -150,7 +150,7 @@ declare namespace mapboxgl {
 		maxZoom?: number;
 
 		/** stylesheet location */
-		style?: Style | string;
+		style?: mapboxgl.Style | string;
 
 		/** If true, the map will track and update the page URL according to map position */
 		hash?: boolean;
@@ -401,11 +401,11 @@ declare namespace mapboxgl {
 
 		constructor(options?: mapboxgl.GeoJSONSourceOptions);
 
-		setData(data: GeoJSON.FeatureCollection<GeoJSON.GeometryObject> | String): this;
+		setData(data: GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.FeatureCollection<GeoJSON.GeometryObject> | String): this;
 	}
 
 	export interface GeoJSONSourceOptions {
-		data?: GeoJSON.FeatureCollection<GeoJSON.GeometryObject>|string;
+		data?: GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.FeatureCollection<GeoJSON.GeometryObject> | string;
 
 		maxzoom?: number;
 
@@ -413,11 +413,15 @@ declare namespace mapboxgl {
 
 		tolerance?: number;
 
-		cluster?: number;
+		cluster?: number | boolean;
 
 		clusterRadius?: number;
 
 		clusterMaxZoom?: number;
+	}
+	
+	export interface GeoJSONSourceRaw extends Source, GeoJSONSourceOptions {
+		type: "geojson";
 	}
 
 	/**
@@ -454,6 +458,17 @@ declare namespace mapboxgl {
 		url?: string;
 
 		coordinates?: number[][];
+	}
+
+	interface VectorSource extends Source {
+		type: "vector";
+		url: string;
+	}
+
+	interface RasterSource extends Source {
+		type: "raster";
+		url: string;
+		tileSize: number
 	}
 
 	/**
@@ -680,8 +695,7 @@ declare namespace mapboxgl {
 		//metadata
 		ref?: string;
 
-		/** Docs say this is optional but errors say it isn't */
-		source: string;
+		source?: string;
 
 		"source-layer"?: string;
 
@@ -706,9 +720,9 @@ declare namespace mapboxgl {
 		visibility?: "visible" | "none";
 	}
 	export interface BackgroundPaint {
-		"background-color": string;
-		"background-pattern": string;
-		"background-opacity": number;
+		"background-color"?: string;
+		"background-pattern"?: string;
+		"background-opacity"?: number;
 	}
 
 	export interface FillLayout {
