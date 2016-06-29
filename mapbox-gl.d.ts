@@ -12,29 +12,29 @@ declare namespace mapboxgl {
 	export class Map extends Evented {
 		constructor(options?: MapboxOptions);
 
-		addControl(control: Control): mapboxgl.Map;
+		addControl(control: Control): this;
 
-		addClass(klass: string, options?: mapboxgl.StyleOptions): mapboxgl.Map;
+		addClass(klass: string, options?: mapboxgl.StyleOptions): this;
 
-		removeClass(klass: string, options?: mapboxgl.StyleOptions): mapboxgl.Map;
+		removeClass(klass: string, options?: mapboxgl.StyleOptions): this;
 
-		setClasses(klasses: string[], options?: mapboxgl.StyleOptions): mapboxgl.Map;
+		setClasses(klasses: string[], options?: mapboxgl.StyleOptions): this;
 
 		hasClass(klass: string): boolean;
 
 		getClasses(): string[];
 
-		resize(): mapboxgl.Map;
+		resize(): this;
 
 		getBounds(): mapboxgl.LngLatBounds;
 
-		setMaxBounds(lnglatbounds?: mapboxgl.LngLatBounds|number[][]): mapboxgl.Map;
+		setMaxBounds(lnglatbounds?: mapboxgl.LngLatBounds | number[][]): this;
 
-		setMinZoom(minZoom: number): mapboxgl.Map;
+		setMinZoom(minZoom: number): this;
 
-		setMaxZoom(maxZoom: number): mapboxgl.Map;
+		setMaxZoom(maxZoom: number): this;
 
-		project(lnglat: mapboxgl.LngLat): number[]; // returns x and y coordinates
+		project(lnglat: mapboxgl.LngLat): { x: number, y: number };
 
 		unproject(point: number[]): mapboxgl.LngLat;
 
@@ -42,33 +42,33 @@ declare namespace mapboxgl {
 
 		querySourceFeatures(sourceID: string, params: {sourceLayer?: string, filter?: any[]}): Object[];
 
-		setStyle(style: Object): mapboxgl.Map;
+		setStyle(style: mapboxgl.Style): this;
 
-		getStyle(): Object;
+		getStyle(): mapboxgl.Style;
 
-		addSource(id: string, source: Object): mapboxgl.Map;
+		addSource(id: string, source: VectorSource | RasterSource | GeoJSONSource | ImageSource | VideoSource | GeoJSONSourceRaw): this;
 
-		removeSource(id: string): mapboxgl.Map;
+		removeSource(id: string): this;
 
-		getSource(id: string): mapboxgl.Map;
+		getSource(id: string): VectorSource | RasterSource | GeoJSONSource | ImageSource | VideoSource;
 
-		addLayer(layer: Object, before?: string): mapboxgl.Map;
+		addLayer(layer: mapboxgl.Layer, before?: string): this;
 
-		removeLayer(id: string): mapboxgl.Map;
+		removeLayer(id: string): this;
 
-		getLayer(id: string): Object;
+		getLayer(id: string): mapboxgl.Layer;
 
-		setFilter(layer: string, filter: any[]): mapboxgl.Map;
+		setFilter(layer: string, filter: any[]): this;
 
-		setLayerZoomRange(layerId: string, minzoom: number, maxzoom: number): mapboxgl.Map;
+		setLayerZoomRange(layerId: string, minzoom: number, maxzoom: number): this;
 
 		getFilter(layer: string): any[];
 
-		setPaintProperty(layer: string, name: string, value: any, klass?: string): mapboxgl.Map;
+		setPaintProperty(layer: string, name: string, value: any, klass?: string): this;
 
 		getPaintProperty(layer: string, name: string, klass?: string): any;
 
-		setLayoutProperty(layer: string, name: string, value: any): mapboxgl.Map;
+		setLayoutProperty(layer: string, name: string, value: any): this;
 
 		getLayoutProperty(layer: string, name: string, klass?: string): any;
 
@@ -92,90 +92,111 @@ declare namespace mapboxgl {
 
 		getCenter(): mapboxgl.LngLat;
 
-		setCenter(center: LngLat, eventData?: mapboxgl.EventData): mapboxgl.Map;
+		setCenter(center: LngLat, eventData?: mapboxgl.EventData): this;
 
-		panBy(offset: number[], options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): mapboxgl.Map;
+		panBy(offset: number[], options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
 
-		panTo(lnglat: mapboxgl.LngLat, options?: mapboxgl.AnimationOptions, eventdata?: mapboxgl.EventData): mapboxgl.Map;
+		panTo(lnglat: mapboxgl.LngLat, options?: mapboxgl.AnimationOptions, eventdata?: mapboxgl.EventData): this;
 
 		getZoom(): number;
 
-		setZoom(zoom: number, eventData?: mapboxgl.EventData): mapboxgl.Map;
+		setZoom(zoom: number, eventData?: mapboxgl.EventData): this;
 
-		zoomTo(zoom: number, options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): mapboxgl.Map;
+		zoomTo(zoom: number, options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
 
-		zoomIn(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): mapboxgl.Map;
+		zoomIn(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
 
-		zoomOut(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): mapboxgl.Map;
+		zoomOut(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
 
 		getBearing(): number;
 
-		setBearing(bearing: number, eventData?: mapboxgl.EventData): mapboxgl.Map;
+		setBearing(bearing: number, eventData?: mapboxgl.EventData): this;
 
-		rotateTo(bearing: number, options?: mapboxgl.AnimationOptions, eventData?: EventData): mapboxgl.Map;
+		rotateTo(bearing: number, options?: mapboxgl.AnimationOptions, eventData?: EventData): this;
 
-		resetNorth(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): mapboxgl.Map;
+		resetNorth(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
 
-		snapToNorth(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): mapboxgl.Map;
+		snapToNorth(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
 
 		getPitch(): number;
 
-		setPitch(pitch: number, eventData?: EventData): mapboxgl.Map;
+		setPitch(pitch: number, eventData?: EventData): this;
 
-		fitBounds(bounds: mapboxgl.LngLatBounds|number[][], options: {linear?: boolean, easing?: Function, padding?: number, maxZoom?: number}): mapboxgl.Map;
+		fitBounds(bounds: mapboxgl.LngLatBounds | number[][], options: { linear?: boolean, easing?: Function, padding?: number, maxZoom?: number }): this;
 
-		jumpTo(options: mapboxgl.CameraOptions, eventData?: mapboxgl.EventData): mapboxgl.Map;
+		jumpTo(options: mapboxgl.CameraOptions, eventData?: mapboxgl.EventData): this;
 
-		easeTo(options: mapboxgl.CameraOptions|mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): mapboxgl.EventData;
+		easeTo(options: mapboxgl.CameraOptions | mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
 
-		flyTo(options: mapboxgl.FlyToOptions, eventData?: mapboxgl.EventData): mapboxgl.Map;
+		flyTo(options: mapboxgl.FlyToOptions, eventData?: mapboxgl.EventData): this;
 
-		stop(): mapboxgl.Map;
+		stop(): this;
 	}
 
 	export interface MapboxOptions {
+		/** If true, enable the "pinch to rotate and zoom" interaction (see TouchZoomRotateHandler). */
 		touchZoomRotate?: boolean;
 
-		center?: mapboxgl.LngLat|number[];
+		/** initial map center */
+		center?: mapboxgl.LngLat | number[];
 
+		/** Initial zoom level */
 		zoom?: number;
 
+		/** Minimum zoom of the map */
 		minZoom?: number;
 
+		/** Maximum zoom of the map */
 		maxZoom?: number;
 
-		style?: Object|string;
+		/** stylesheet location */
+		style?: mapboxgl.Style | string;
 
+		/** If true, the map will track and update the page URL according to map position */
 		hash?: boolean;
 
+		/** If false, no mouse, touch, or keyboard listeners are attached to the map, so it will not respond to input */
 		interactive?: boolean;
 
+		/** Snap to north threshold in degrees. */
 		bearingSnap?: number;
 
 		bearing?: number;
 
+		/** Style class names with which to initialize the map */
 		classes?: string[];
 
+		/** If true, an attribution control will be added to the map. */
 		attributionControl?: boolean;
 
-		container?: string|Element;
+		/** ID of the container element */
+		container?: string | Element;
 
+		/** If true, The maps canvas can be exported to a PNG using map.getCanvas().toDataURL();. This is false by default as a performance optimization. */
 		preserveDrawingBuffer?: boolean;
 
-		maxBounds?: mapboxgl.LngLatBounds|number[][];
+		/** If set, the map is constrained to the given bounds. */
+		maxBounds?: mapboxgl.LngLatBounds | number[][];
 
+		/** If true, enable the "scroll to zoom" interaction */
 		scrollZoom?: boolean;
 
+		/** If true, enable the "box zoom" interaction (see BoxZoomHandler) */
 		boxZoom?: boolean;
 
+		/** If true, enable the "drag to rotate" interaction (see DragRotateHandler). */
 		dragRotate?: boolean;
 
+		/** If true, enable the "drag to pan" interaction (see DragPanHandler). */
 		dragPan?: boolean;
 
+		/** If true, enable keyboard shortcuts (see KeyboardHandler). */
 		keyboard?: boolean;
 
+		/** If true, enable the "double click to zoom" interaction (see DoubleClickZoomHandler). */
 		doubleClickZoom?: boolean;
 
+		/** If true, map creation will fail if the implementation determines that the performance of the created WebGL context would be dramatically lower than expected. */
 		failIfMayorPerformanceCaveat?: boolean;
 	}
 
@@ -183,9 +204,9 @@ declare namespace mapboxgl {
 	 * Control
 	 */
 	export class Control {
-		addTo(map: mapboxgl.Map): mapboxgl.Control;
+		addTo(map: mapboxgl.Map): this;
 
-		remove(): mapboxgl.Control;
+		remove(): this;
 	}
 
 	/**
@@ -323,19 +344,19 @@ declare namespace mapboxgl {
 	export class Popup {
 		constructor(options?: mapboxgl.PopupOptions);
 
-		addTo(map: mapboxgl.Map): mapboxgl.Popup;
+		addTo(map: mapboxgl.Map): this;
 
-		remove(): mapboxgl.Popup;
+		remove(): this;
 
 		getLngLat(): mapboxgl.LngLat;
 
-		setLngLat(lnglat: mapboxgl.LngLat|number[]): mapboxgl.Popup;
+		setLngLat(lnglat: mapboxgl.LngLat | number[]): this;
 
-		setText(text: string): mapboxgl.Popup;
+		setText(text: string): this;
 
-		setHTML(html: string): mapboxgl.Popup;
+		setHTML(html: string): this;
 
-		setDOMContent(htmlNode: Node): mapboxgl.Popup;
+		setDOMContent(htmlNode: Node): this;
 	}
 
 	export interface PopupOptions {
@@ -346,17 +367,45 @@ declare namespace mapboxgl {
 		anchor?: 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 	}
 
+	export interface Style {
+		bearing?: number;
+		center?: Array<number>;
+		glyphs?: string;
+		layers?: Array<Layer>;
+		metadata?: any;
+		name?: string;
+		pitch?: number;
+		sources?: any;
+		sprite?: string;
+		transition?: Transition;
+		version: number;
+		zoom?: number;
+	}
+
+	export interface Transition {
+		delay?: number;
+		duration?: number;
+	}
+
+	export interface Source {
+		type: "vector" | "raster" | "geojson" | "image" | "video";
+	}
+
+
+
 	/**
 	 * GeoJSONSource
 	 */
-	export class GeoJSONSource {
+	export class GeoJSONSource implements Source {
+		type: "geojson";
+
 		constructor(options?: mapboxgl.GeoJSONSourceOptions);
 
-		setData(data: GeoJSON.FeatureCollection<GeoJSON.GeometryObject>|String): mapboxgl.GeoJSONSource;
+		setData(data: GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.FeatureCollection<GeoJSON.GeometryObject> | String): this;
 	}
 
 	export interface GeoJSONSourceOptions {
-		data?: GeoJSON.FeatureCollection<GeoJSON.GeometryObject>|string;
+		data?: GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.FeatureCollection<GeoJSON.GeometryObject> | string;
 
 		maxzoom?: number;
 
@@ -364,22 +413,28 @@ declare namespace mapboxgl {
 
 		tolerance?: number;
 
-		cluster?: number;
+		cluster?: number | boolean;
 
 		clusterRadius?: number;
 
 		clusterMaxZoom?: number;
 	}
+	
+	export interface GeoJSONSourceRaw extends Source, GeoJSONSourceOptions {
+		type: "geojson";
+	}
 
 	/**
 	 * VideoSource
 	 */
-	export class VideoSource {
+	export class VideoSource implements Source {
+		type: "video";
+
 		constructor(options?: mapboxgl.VideoSourceOptions);
 
 		getVideo(): Object;
 
-		setCoordinates(coordinates: number[][]): mapboxgl.VideoSource;
+		setCoordinates(coordinates: number[][]): this;
 	}
 
 	export interface VideoSourceOptions {
@@ -391,10 +446,12 @@ declare namespace mapboxgl {
 	/**
 	 * ImageSource
 	 */
-	export class ImageSource {
+	export class ImageSource implements Source {
+		type: "image";
+
 		constructor(options?: mapboxgl.ImageSourceOptions);
 
-		setCoordinates(coordinates: number[][]): mapboxgl.ImageSource;
+		setCoordinates(coordinates: number[][]): this;
 	}
 
 	export interface ImageSourceOptions {
@@ -403,16 +460,33 @@ declare namespace mapboxgl {
 		coordinates?: number[][];
 	}
 
+	interface VectorSource extends Source {
+		type: "vector";
+		url: string;
+	}
+
+	interface RasterSource extends Source {
+		type: "raster";
+		url: string;
+		tileSize: number
+	}
+
 	/**
 	 * LngLat
 	 */
 	export class LngLat {
+		lng: number;
+		lat: number;
+
 		constructor(lng: number, lat: number);
 
+		/** Return a new LngLat object whose longitude is wrapped to the range (-180, 180). */
 		wrap(): mapboxgl.LngLat;
 
+		/** Return a LngLat as an array */
 		toArray(): number[];
 
+		/** Return a LngLat as a string */
 		toString(): string;
 
 		static convert(input: number[]|mapboxgl.LngLat): mapboxgl.LngLat;
@@ -424,31 +498,44 @@ declare namespace mapboxgl {
 	export class LngLatBounds {
 		constructor(sw?: LngLat, ne?: LngLat);
 
-		extend(obj: mapboxgl.LngLat|mapboxgl.LngLatBounds): mapboxgl.LngLatBounds;
+		/** Extend the bounds to include a given LngLat or LngLatBounds. */
+		extend(obj: mapboxgl.LngLat | mapboxgl.LngLatBounds): this;
 
+		/** Get the point equidistant from this box's corners */
 		getCenter(): mapboxgl.LngLat;
 
+		/** Get southwest corner */
 		getSouthWest(): mapboxgl.LngLat;
 
+		/** Get northeast corner */
 		getNorthEast(): mapboxgl.LngLat;
 
+		/** Get northwest corner */
 		getNorthWest(): mapboxgl.LngLat;
 
+		/** Get southeast corner */
 		getSouthEast(): mapboxgl.LngLat;
 
+		/** Get west edge longitude */
 		getWest(): number;
 
+		/** Get south edge latitude */
 		getSouth(): number;
 
+		/** Get east edge longitude */
 		getEast(): number;
 
+		/** Get north edge latitude */
 		getNorth(): number;
 
-		toArray(): number[];
+		/** Returns a LngLatBounds as an array */
+		toArray(): number[][];
 
+		/** Return a LngLatBounds as a string */
 		toString(): string;
 
-		static convert(input: mapboxgl.LngLatBounds|number[]|number[][]): mapboxgl.LngLatBounds;
+		/** Convert an array to a LngLatBounds object, or return an existing LngLatBounds object unchanged. */
+		static convert(input: mapboxgl.LngLatBounds | number[] | number[][]): mapboxgl.LngLatBounds;
 	}
 
 	/**
@@ -499,13 +586,13 @@ declare namespace mapboxgl {
 	 * Evented
 	 */
 	export class Evented {
-		on(type: string, listener: Function): mapboxgl.Evented;
+		on(type: string, listener: Function): this;
 
-		off(type?: string|any, listener?: Function): mapboxgl.Evented;
+		off(type?: string | any, listener?: Function): this;
 
-		once(type: string, listener: Function): mapboxgl.Evented;
+		once(type: string, listener: Function): this;
 
-		fire(type: string, data?: mapboxgl.EventData|Object): mapboxgl.Evented;
+		fire(type: string, data?: mapboxgl.EventData | Object): this;
 
 		listens(type: string): boolean;
 	}
@@ -530,9 +617,12 @@ declare namespace mapboxgl {
 	 * AnimationOptions
 	 */
 	export interface AnimationOptions {
+		/** Number in milliseconds */
 		duration?: number;
 		easing?: Function;
+		/** point, origin of movement relative to map center */
 		offset?: number[];
+		/** When set to false, no animation happens */
 		animate?: boolean;
 	}
 
@@ -540,10 +630,15 @@ declare namespace mapboxgl {
 	 * CameraOptions
 	 */
 	export interface CameraOptions {
-		center?: mapboxgl.LngLat|number[];
+		/** Map center */
+		center?: mapboxgl.LngLat | number[];
+		/** Map zoom level */
 		zoom?: number;
+		/** Map rotation bearing in degrees counter-clockwise from north */
 		bearing?: number;
+		/** Map angle in degrees at which the camera is looking at the ground */
 		pitch?: number;
+		/** If zooming, the zoom center (defaults to map center) */
 		around?: mapboxgl.LngLat;
 	}
 
@@ -591,7 +686,157 @@ declare namespace mapboxgl {
 		drag?: {data: mapboxgl.EventData};
 		dragend?: {data: mapboxgl.EventData};
 		pitch?: {data: mapboxgl.EventData};
+	}
+	
+	export interface Layer {
+		id: string;
+		type?: "fill" | "line" | "symbol" | "circle" | "raster" | "background" | string; //TODO: Ideally we wouldn't accept string here, just these specific strings
 
+		//metadata
+		ref?: string;
+
+		source?: string;
+
+		"source-layer"?: string;
+
+		minzoom?: number;
+		maxzoom?: number;
+
+		interactive?: boolean;
+
+		filter?: Array<any>;
+		layout?: BackgroundLayout | FillLayout | LineLayout | SymbolLayout | RasterLayout | CircleLayout;
+		paint?: BackgroundPaint | FillPaint | LinePaint | SymbolPaint | RasterPaint | CirclePaint;
+	}
+
+	export interface StyleFunction {
+		stops: Array<Array<any>>;
+		property?: string;
+		base?: number;
+		type?: "continuous" | "interval" | "categorical";
+	}
+
+	export interface BackgroundLayout {
+		visibility?: "visible" | "none";
+	}
+	export interface BackgroundPaint {
+		"background-color"?: string;
+		"background-pattern"?: string;
+		"background-opacity"?: number;
+	}
+
+	export interface FillLayout {
+		visibility?: "visible" | "none";
+	}
+	export interface FillPaint {
+		"fill-antialias"?: boolean;
+		"fill-opacity"?: number;
+		"fill-color"?: string;
+		"fill-outline-color": string;
+		"fill-translate"?: Array<number>;
+		"fill-translate-anchor"?: "map" | "viewport";
+		"fill-pattern"?: "string";
+	}
+
+	export interface LineLayout {
+		visibility?: "visible" | "none";
+
+		"line-cap"?: "butt" | "round" | "square";
+		"line-join"?: "bevel" | "round" | "miter";
+		"line-miter-limit"?: number;
+		"line-round-limit"?: number;
+	}
+	export interface LinePaint {
+		"line-opacity"?: number;
+		"line-color"?: string;
+		"line-translate"?: Array<number>;
+		"line-translate-anchor"?: "map" | "viewport";
+		"line-width"?: number;
+		"line-gap-width"?: number;
+		"line-offset"?: number;
+		"line-blur"?: number;
+		"line-dasharray"?: Array<number>;
+		"line-pattern"?: string;
+	}
+
+	export interface SymbolLayout {
+		visibility?: "visible" | "none";
+
+		"symbol-placement"?: "point" | "line";
+		"symbol-spacing"?: number;
+		"symbol-avoid-edges"?: boolean;
+		"icon-allow-overlap"?: boolean;
+		"icon-ignore-placement"?: boolean;
+		"icon-optional"?: boolean;
+		"icon-rotation-alignment"?: "map" | "viewport";
+		"icon-size"?: number;
+		"icon-image"?: string;
+		"icon-rotate"?: number;
+		"icon-padding"?: number;
+		"icon-keep-upright"?: boolean;
+		"icon-offset"?: Array<number>;
+		"text-rotation-alignment"?: "map" | "viewport";
+		"text-field"?: string;
+		"text-font"?: string;
+		"text-size"?: number;
+		"text-max-width"?: number;
+		"text-line-height"?: number;
+		"text-letter-spacing"?: number;
+		"text-justify"?: "left" | "center" | "right";
+		"text-anchor"?: "center" | "left" | "right" | "top" | "bottom" | "top-left" | "top-right" | "bottom-left" | "bottom-right";
+		"text-max-angle"?: number;
+		"text-rotate"?: number;
+		"text-padding"?: number;
+		"text-keep-upright"?: boolean;
+		"text-transform"?: "none" | "uppercase" | "lowercase";
+		"text-offset"?: Array<number>;
+		"text-allow-overlap"?: boolean;
+		"text-ignore-placement"?: boolean;
+		"text-optional"?: boolean;
+
+	}
+	export interface SymbolPaint {
+		"icon-opacity"?: number;
+		"icon-color"?: string;
+		"icon-halo-color"?: string;
+		"icon-halo-width"?: number;
+		"icon-halo-blur"?: number;
+		"icon-translate"?: Array<number>;
+		"icon-translate-anchor"?: "map" | "viewport";
+		"text-opacity"?: number;
+		"text-color"?: "string";
+		"text-halo-color"?: "string";
+		"text-halo-width"?: number;
+		"text-halo-blur"?: number;
+		"text-translate"?: Array<number>;
+		"text-translate-anchor"?: "map" | "viewport";
+	}
+
+	export interface RasterLayout {
+		visibility?: "visible" | "none";
+	}
+
+	export interface RasterPaint {
+		"raster-opacity"?: number;
+		"raster-hue-rotate"?: number;
+		"raster-brightness-min"?: number;
+		"raster-brightness-max"?: number;
+		"raster-saturation"?: number;
+		"raster-contrast"?: number;
+		"raster-fade-duration"?: number;
+	}
+
+	export interface CircleLayout {
+		visibility?: "visible" | "none";
+	}
+
+	export interface CirclePaint {
+		"circle-radius"?: number | StyleFunction;
+		"circle-color"?: number | StyleFunction;
+		"circle-blur"?: number;
+		"circle-opacity"?: number;
+		"circle-translate"?: Array<number>;
+		"circle-translate-anchor"?: "map" | "viewport";
 	}
 }
 
