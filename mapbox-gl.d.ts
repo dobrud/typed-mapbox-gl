@@ -131,6 +131,20 @@ declare namespace mapboxgl {
 		flyTo(options: mapboxgl.FlyToOptions, eventData?: mapboxgl.EventData): this;
 
 		stop(): this;
+
+		scrollZoom: ScrollZoomHandler;
+
+		boxZoom: BoxZoomHandler;
+
+		dragRotate: DragRotateHandler;
+
+		dragPan: DragPanHandler;
+
+		keyboard: KeyboardHandler;
+
+		doublClickZoom: DoubleClickZoomHandler;
+
+		touchZoomRotate: TouchZoomRotateHandler;
 	}
 
 	export interface MapboxOptions {
@@ -240,7 +254,7 @@ declare namespace mapboxgl {
 	/**
 	 * DragPenHandler
 	 */
-	export class DragPenHandler {
+	export class DragPanHandler {
 		constructor(map: mapboxgl.Map);
 
 		isEnabled(): boolean;
@@ -833,8 +847,8 @@ declare namespace mapboxgl {
 	export interface CirclePaint {
 		"circle-radius"?: number | StyleFunction;
 		"circle-color"?: number | StyleFunction;
-		"circle-blur"?: number;
-		"circle-opacity"?: number;
+		"circle-blur"?: number | StyleFunction;
+		"circle-opacity"?: number | StyleFunction;
 		"circle-translate"?: Array<number>;
 		"circle-translate-anchor"?: "map" | "viewport";
 	}
