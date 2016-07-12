@@ -5,6 +5,7 @@
 
 declare namespace mapboxgl {
 	let accessToken: string;
+	export function supported(): boolean;
 
 	/**
 	 * Map
