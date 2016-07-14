@@ -335,21 +335,21 @@ declare namespace mapboxgl {
 	/**
 	 * Navigation
 	 */
-	export class Navigation {
+	export class Navigation extends Control {
 		constructor(options?: mapboxgl.ControlOptions);
 	}
 
 	/**
 	 * Geolocate
 	 */
-	export class Geolocate {
+	export class Geolocate extends Control {
 		constructor(options?: mapboxgl.ControlOptions);
 	}
 
 	/**
 	 * Attribution
 	 */
-	export class Attribution {
+	export class Attribution extends Control {
 		constructor(options?: mapboxgl.ControlOptions);
 	}
 
