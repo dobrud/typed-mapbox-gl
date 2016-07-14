@@ -335,21 +335,21 @@ declare namespace mapboxgl {
 	/**
 	 * Navigation
 	 */
-	export class Navigation {
+	export class Navigation extends Control {
 		constructor(options?: mapboxgl.ControlOptions);
 	}
 
 	/**
 	 * Geolocate
 	 */
-	export class Geolocate {
+	export class Geolocate extends Control {
 		constructor(options?: mapboxgl.ControlOptions);
 	}
 
 	/**
 	 * Attribution
 	 */
-	export class Attribution {
+	export class Attribution extends Control {
 		constructor(options?: mapboxgl.ControlOptions);
 	}
 
@@ -597,6 +597,18 @@ declare namespace mapboxgl {
 		angleWidthSep(): number;
 	}
 
+	export class Marker {
+		constructor(element?: HTMLElement);
+
+		addTo(map: Map): this;
+
+		remove(): this;
+
+		getLngLat(): LngLat;
+
+		setLngLat(lngLat: LngLat): this;
+	}
+
 	/**
 	 * Evented
 	 */
@@ -623,9 +635,34 @@ declare namespace mapboxgl {
 	 * EventData
 	 */
 	export class EventData {
+		type: string;
+		target: Map;
 		originalEvent: Event;
 		point: mapboxgl.Point;
 		lngLat: mapboxgl.LngLat;
+	}
+
+	export class MapMouseEvent {
+		type: string;
+		target: Map;
+		originalEvent: MouseEvent;
+		point: mapboxgl.Point;
+		lngLat: mapboxgl.LngLat;
+	}
+
+	export class MapTouchEvent {
+		type: string;
+		target: Map;
+		originalEvent: TouchEvent;
+		point: mapboxgl.Point;
+		lngLat: mapboxgl.LngLat;
+		points: Array<Point>;
+		lngLats: Array<LngLat>;
+	}
+
+	export class MapBoxZoomEvent {
+		originalEvent: MouseEvent;
+		boxZoomBounds: LngLatBounds;
 	}
 
 	/**
@@ -672,34 +709,35 @@ declare namespace mapboxgl {
 	 * MapEvent
 	 */
 	export interface MapEvent {
-		webglcontextlost?: {originalEvent: Event};
-		webglcontextrestored?: void;
+		webglcontextlost?: {originalEvent: WebGLContextEvent};
+		webglcontextrestored?: {originalEvent: WebGLContextEvent};
 		render?: void;
-		contextmenu?: {data: mapboxgl.EventData};
-		dblclick?: {data: mapboxgl.EventData};
-		click?: {data: mapboxgl.EventData};
-		touchcancel?: {data: mapboxgl.EventData};
-		touchmove?: {data: mapboxgl.EventData};
-		touchend?: {data: mapboxgl.EventData};
-		touchstart?: {data: mapboxgl.EventData};
-		mousemove?: {data: mapboxgl.EventData};
-		mouseup?: {data: mapboxgl.EventData};
-		mousedown?: {data: mapboxgl.EventData};
-		moveend?: {data: mapboxgl.EventData};
-		move?: {data: mapboxgl.EventData};
-		movestart?: {data: mapboxgl.EventData};
+		contextmenu?: {data: mapboxgl.MapMouseEvent};
+		dblclick?: {data: mapboxgl.MapMouseEvent};
+		click?: {data: mapboxgl.MapMouseEvent};
+		touchcancel?: {data: mapboxgl.MapTouchEvent};
+		touchmove?: {data: mapboxgl.MapTouchEvent};
+		touchend?: {data: mapboxgl.MapTouchEvent};
+		touchstart?: {data: mapboxgl.MapTouchEvent};
+		mousemove?: {data: mapboxgl.MapMouseEvent};
+		mouseup?: {data: mapboxgl.MapMouseEvent};
+		mousedown?: {data: mapboxgl.MapMouseEvent};
+		moveend?: {data: mapboxgl.MapMouseEvent | mapboxgl.MapTouchEvent};
+		move?: {data: mapboxgl.MapMouseEvent | mapboxgl.MapTouchEvent};
+		movestart?: {data: mapboxgl.MapMouseEvent | mapboxgl.MapTouchEvent};
+		mouseout?:{data: mapboxgl.MapMouseEvent};
 		load?: void;
-		zoomend?: {data: mapboxgl.EventData};
-		zoom?: {data: mapboxgl.EventData};
-		zoomstart?: {data: mapboxgl.EventData};
-		boxzoomcancel?: {data: mapboxgl.EventData};
-		boxzoomstart?: {data: mapboxgl.EventData};
-		boxzoomend?: {originalEvent: Event, boxZoomBounds: mapboxgl.LngLatBounds};
-		rotate?: {data: mapboxgl.EventData};
-		rotatestart?: {data: mapboxgl.EventData};
-		rotateend?: {data: mapboxgl.EventData};
-		drag?: {data: mapboxgl.EventData};
-		dragend?: {data: mapboxgl.EventData};
+		zoomend?: {data: mapboxgl.MapMouseEvent | mapboxgl.MapTouchEvent};
+		zoom?: {data: mapboxgl.MapMouseEvent | mapboxgl.MapTouchEvent};
+		zoomstart?: {data: mapboxgl.MapMouseEvent | mapboxgl.MapTouchEvent};
+		boxzoomcancel?: {data: mapboxgl.MapBoxZoomEvent};
+		boxzoomstart?: {data: mapboxgl.MapBoxZoomEvent};
+		boxzoomend?: {data: mapboxgl.MapBoxZoomEvent};
+		rotate?: {data: mapboxgl.MapMouseEvent | mapboxgl.MapTouchEvent};
+		rotatestart?: {data: mapboxgl.MapMouseEvent | mapboxgl.MapTouchEvent};
+		rotateend?: {data: mapboxgl.MapMouseEvent | mapboxgl.MapTouchEvent};
+		drag?: {data: mapboxgl.MapMouseEvent | mapboxgl.MapTouchEvent};
+		dragend?: {data: mapboxgl.MapMouseEvent | mapboxgl.MapTouchEvent};
 		pitch?: {data: mapboxgl.EventData};
 	}
 	
@@ -745,9 +783,9 @@ declare namespace mapboxgl {
 	}
 	export interface FillPaint {
 		"fill-antialias"?: boolean;
-		"fill-opacity"?: number;
-		"fill-color"?: string;
-		"fill-outline-color": string;
+		"fill-opacity"?: number | StyleFunction;
+		"fill-color"?: string | StyleFunction;
+		"fill-outline-color": string | StyleFunction;
 		"fill-translate"?: Array<number>;
 		"fill-translate-anchor"?: "map" | "viewport";
 		"fill-pattern"?: "string";
@@ -785,11 +823,14 @@ declare namespace mapboxgl {
 		"icon-optional"?: boolean;
 		"icon-rotation-alignment"?: "map" | "viewport";
 		"icon-size"?: number;
+		"icon-text-fit"?: "none" | "both" | "width" | "height";
+		"icon-text-fit-padding"?: Array<number>;
 		"icon-image"?: string;
-		"icon-rotate"?: number;
+		"icon-rotate"?: number | StyleFunction;
 		"icon-padding"?: number;
 		"icon-keep-upright"?: boolean;
 		"icon-offset"?: Array<number>;
+		"text-pitch-alignment"?: "map" | "viewport";
 		"text-rotation-alignment"?: "map" | "viewport";
 		"text-field"?: string;
 		"text-font"?: string;
@@ -852,6 +893,7 @@ declare namespace mapboxgl {
 		"circle-opacity"?: number | StyleFunction;
 		"circle-translate"?: Array<number>;
 		"circle-translate-anchor"?: "map" | "viewport";
+		"circle-pitch-scale"?: "map" | "viewport";
 	}
 }
 
