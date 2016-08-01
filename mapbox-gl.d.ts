@@ -123,7 +123,7 @@ declare namespace mapboxgl {
 
 		setPitch(pitch: number, eventData?: EventData): this;
 
-		fitBounds(bounds: mapboxgl.LngLatBounds | number[][], options: { linear?: boolean, easing?: Function, padding?: number, maxZoom?: number }): this;
+		fitBounds(bounds: mapboxgl.LngLatBounds | number[][], options?: { linear?: boolean, easing?: Function, padding?: number, maxZoom?: number }): this;
 
 		jumpTo(options: mapboxgl.CameraOptions, eventData?: mapboxgl.EventData): this;
 
@@ -434,7 +434,7 @@ declare namespace mapboxgl {
 
 		clusterMaxZoom?: number;
 	}
-	
+
 	export interface GeoJSONSourceRaw extends Source, GeoJSONSourceOptions {
 		type: "geojson";
 	}
@@ -740,7 +740,7 @@ declare namespace mapboxgl {
 		dragend?: {data: mapboxgl.MapMouseEvent | mapboxgl.MapTouchEvent};
 		pitch?: {data: mapboxgl.EventData};
 	}
-	
+
 	export interface Layer {
 		id: string;
 		type?: "fill" | "line" | "symbol" | "circle" | "raster" | "background" | string; //TODO: Ideally we wouldn't accept string here, just these specific strings
