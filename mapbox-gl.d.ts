@@ -809,6 +809,7 @@ declare namespace mapboxgl {
 		"line-offset"?: number;
 		"line-blur"?: number;
 		"line-dasharray"?: Array<number>;
+		"line-dasharray-transition"?: Transition;
 		"line-pattern"?: string;
 	}
 
@@ -888,6 +889,7 @@ declare namespace mapboxgl {
 
 	export interface CirclePaint {
 		"circle-radius"?: number | StyleFunction;
+		"circle-radius-transition"?: Transition;
 		"circle-color"?: number | StyleFunction;
 		"circle-blur"?: number | StyleFunction;
 		"circle-opacity"?: number | StyleFunction;
