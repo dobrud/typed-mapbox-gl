@@ -604,7 +604,7 @@ declare namespace mapboxgl {
 
 		getLngLat(): LngLat;
 
-		setLngLat(lngLat: LngLat): this;
+		setLngLat(lngLat: LngLat | number[][]): this;
 	}
 
 	/**
@@ -743,7 +743,7 @@ declare namespace mapboxgl {
 		id: string;
 		type?: "fill" | "line" | "symbol" | "circle" | "raster" | "background" | string; //TODO: Ideally we wouldn't accept string here, just these specific strings
 
-		//metadata
+		metadata?: any;
 		ref?: string;
 
 		source?: string;
