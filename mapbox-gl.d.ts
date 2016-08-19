@@ -406,15 +406,13 @@ declare namespace mapboxgl {
 		type: "vector" | "raster" | "geojson" | "image" | "video";
 	}
 
-
-
 	/**
 	 * GeoJSONSource
 	 */
-	export class GeoJSONSource implements Source {
+	export class GeoJSONSource implements Source, GeoJSONSourceOptions {
 		type: "geojson";
 
-		constructor(options?: mapboxgl.GeoJSONSourceOptions);
+		private constructor(options?: mapboxgl.GeoJSONSourceOptions);
 
 		setData(data: GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.FeatureCollection<GeoJSON.GeometryObject> | String): this;
 	}
@@ -442,10 +440,10 @@ declare namespace mapboxgl {
 	/**
 	 * VideoSource
 	 */
-	export class VideoSource implements Source {
+	export class VideoSource implements Source, VideoSourceOptions {
 		type: "video";
 
-		constructor(options?: mapboxgl.VideoSourceOptions);
+		private constructor(options?: mapboxgl.VideoSourceOptions);
 
 		getVideo(): Object;
 
@@ -461,10 +459,10 @@ declare namespace mapboxgl {
 	/**
 	 * ImageSource
 	 */
-	export class ImageSource implements Source {
+	export class ImageSource implements Source, ImageSourceOptions {
 		type: "image";
 
-		constructor(options?: mapboxgl.ImageSourceOptions);
+		private constructor(options?: mapboxgl.ImageSourceOptions);
 
 		setCoordinates(coordinates: number[][]): this;
 	}
