@@ -356,7 +356,7 @@ declare namespace mapboxgl {
 	/**
 	 * Popup
 	 */
-	export class Popup {
+	export class Popup extends Evented {
 		constructor(options?: mapboxgl.PopupOptions);
 
 		addTo(map: mapboxgl.Map): this;
