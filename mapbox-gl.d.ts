@@ -43,7 +43,7 @@ declare namespace mapboxgl {
 
 		querySourceFeatures(sourceID: string, params: {sourceLayer?: string, filter?: any[]}): Object[];
 
-		setStyle(style: mapboxgl.Style): this;
+		setStyle(style: mapboxgl.Style | string): this;
 
 		getStyle(): mapboxgl.Style;
 
