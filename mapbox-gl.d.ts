@@ -604,7 +604,7 @@ declare namespace mapboxgl {
 
 		getLngLat(): LngLat;
 
-		setLngLat(lngLat: LngLat | number[][]): this;
+		setLngLat(lngLat: LngLat | number[]): this;
 	}
 
 	/**
