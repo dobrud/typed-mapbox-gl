@@ -354,6 +354,13 @@ declare namespace mapboxgl {
 	}
 
 	/**
+	 * Scale
+	 */
+	export class Scale extends Control {
+		constructor(options?: {position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left', maxWidth?: number})
+	}
+
+	/**
 	 * Popup
 	 */
 	export class Popup extends Evented {
@@ -380,6 +387,8 @@ declare namespace mapboxgl {
 		closeOnClick?: boolean;
 
 		anchor?: 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+
+		offset?: number | number[];
 	}
 
 	export interface Style {
@@ -596,7 +605,7 @@ declare namespace mapboxgl {
 	}
 
 	export class Marker {
-		constructor(element?: HTMLElement);
+		constructor(element?: HTMLElement, options?: { offset?: number[] });
 
 		addTo(map: Map): this;
 
@@ -605,6 +614,12 @@ declare namespace mapboxgl {
 		getLngLat(): LngLat;
 
 		setLngLat(lngLat: LngLat | number[]): this;
+
+		setPopup(popup: Popup): this;
+
+		getPopup(): Popup;
+
+		togglePopup(): this;
 	}
 
 	/**
@@ -799,7 +814,7 @@ declare namespace mapboxgl {
 	}
 	export interface LinePaint {
 		"line-opacity"?: number;
-		"line-color"?: string;
+		"line-color"?: StyleFunction;
 		"line-translate"?: Array<number>;
 		"line-translate-anchor"?: "map" | "viewport";
 		"line-width"?: number;
