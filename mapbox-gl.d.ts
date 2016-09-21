@@ -48,7 +48,7 @@ declare namespace mapboxgl {
 
 		getStyle(): mapboxgl.Style;
 
-		addSource(id: string, source: Source): this;
+		addSource(id: string, source: VectorSource | RasterSource | GeoJSONSource | ImageSource | VideoSource | GeoJSONSourceRaw): this;
 
 		removeSource(id: string): this;
 
