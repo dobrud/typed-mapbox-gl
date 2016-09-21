@@ -432,7 +432,9 @@ declare namespace mapboxgl {
 	}
 
 	export class GeoJSONSource implements GeoJSONSourceRaw {
-		private constructor(options?: mapboxgl.GeoJSONSourceOptions);
+		type: "geojson";
+
+		constructor(options?: mapboxgl.GeoJSONSourceOptions);
 
 		setData(data: GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.FeatureCollection<GeoJSON.GeometryObject> | String): this;
 	}
@@ -457,7 +459,9 @@ declare namespace mapboxgl {
 	 * VideoSource
 	 */
 	export class VideoSource implements Source, VideoSourceOptions {
-		private constructor(options?: mapboxgl.VideoSourceOptions);
+		type: "video";
+		
+		constructor(options?: mapboxgl.VideoSourceOptions);
 
 		getVideo(): HTMLVideoElement;
 
@@ -476,7 +480,7 @@ declare namespace mapboxgl {
 	export class ImageSource implements Source, ImageSourceOptions {
 		type: "image";
 
-		private constructor(options?: mapboxgl.ImageSourceOptions);
+		constructor(options?: mapboxgl.ImageSourceOptions);
 
 		setCoordinates(coordinates: number[][]): this;
 	}
