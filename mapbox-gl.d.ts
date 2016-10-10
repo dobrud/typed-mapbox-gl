@@ -40,7 +40,7 @@ declare namespace mapboxgl {
 
 		unproject(point: mapboxgl.Point | number[]): mapboxgl.LngLat;
 
-		queryRenderedFeatures(pointOrBox?: mapboxgl.Point|number[]|mapboxgl.Point[]|number[][], parameters?: {layers?: string[], filter?: any[]}): GeoJSON.Feature<GeoJSON.GeometryObject>[];
+		queryRenderedFeatures(pointOrBoxOrParameters?: mapboxgl.Point|number[]|mapboxgl.Point[]|number[][]|{layers?: string[], filter?: any[]}, parameters?: {layers?: string[], filter?: any[]}): GeoJSON.Feature<GeoJSON.GeometryObject>[];
 
 		querySourceFeatures(sourceID: string, parameters: {sourceLayer?: string, filter?: any[]}): GeoJSON.Feature<GeoJSON.GeometryObject>[];
 
